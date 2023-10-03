@@ -30,10 +30,10 @@ listint_t *insert_node(listint_t **head, int number)
 		if (ptr->n >= number)
 		{
 			if (!prv)
-				*head = newNode;
+				*head = newNode, newNode->next = ptr;
 			else
-				newNode->next = ptr;
-			break;
+				newNode->next = ptr, prv->next = newNode;
+			return (newNode);
 		}
 		prv = ptr;
 		ptr = ptr->next;
