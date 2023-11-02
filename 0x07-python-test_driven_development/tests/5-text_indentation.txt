@@ -40,3 +40,12 @@ Utinam quidem dicerent alium alio beatiorem! Iam ruinas videres
 >>> text_indentation(35)
 Traceback (most recent call last):
 TypeError: text must be a string
+
+>>> text_indentation("Hello    .    my little  :    Friend?   bye    ")
+Hello.
+<BLANKLINE>
+my little:
+<BLANKLINE>
+Friend?
+<BLANKLINE>
+bye

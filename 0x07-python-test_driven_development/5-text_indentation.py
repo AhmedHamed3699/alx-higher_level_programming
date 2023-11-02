@@ -7,13 +7,18 @@ def text_indentation(text=''):
     if not isinstance(text, str):
         raise TypeError("text must be a string")
     flag = False
+    spaces = ''
     for char in text:
         if char in ('.', '?', ':'):
             print(char + '\n')
+            spaces = ''
             flag = True
-        elif char == ' ' and flag:
-            flag = False
+        elif char == ' ':
+            spaces += ' '
             continue
         else:
-            flag = False
-            print(char, end='')
+            if flag:
+                spaces = ''
+                flag = False
+            print(spaces + char, end='')
+            spaces = ''
