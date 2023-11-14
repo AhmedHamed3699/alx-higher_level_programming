@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Base Module."""
 import json
-from pathlib import Path
 
 
 class Base:
@@ -20,7 +19,7 @@ class Base:
     @staticmethod
     def to_json_string(list_dictionaries):
         """Convert list_dictionaries to json."""
-        if list_dictionaries is None:
+        if not list_dictionaries:
             return "[]"
         return json.dumps(list_dictionaries)
 
@@ -28,8 +27,9 @@ class Base:
     def save_to_file(cls, list_objs):
         """Save objects to file."""
         saved_list = []
-        for obj in list_objs:
-            saved_list.append(obj.to_dictionary())
+        if list_objs:
+            for obj in list_objs:
+                saved_list.append(obj.to_dictionary())
         with open(f'{cls.__name__}.json', 'w', encoding='utf-8') as file:
             file.write(cls.to_json_string(saved_list))
 
@@ -56,6 +56,7 @@ class Base:
     @classmethod
     def load_from_file(cls):
         """Load objects from file."""
+        from pathlib import Path
         file_name = f'{cls.__name__}.json'
         file_path = Path(file_name)
         if not file_path.is_file():
