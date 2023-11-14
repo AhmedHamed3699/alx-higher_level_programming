@@ -33,6 +33,33 @@ class Base:
         with open(f'{cls.__name__}.json', 'w', encoding='utf-8') as file:
             file.write(cls.to_json_string(saved_list))
 
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Save CSV to file."""
+        with open(f'{cls.__name__}.csv', 'w', encoding='utf-8') as file:
+            if list_objs:
+                for obj in list_objs:
+                    file.write(obj.to_csv_string() + '\n')
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """Load objects from CSV file."""
+        from models.rectangle import Rectangle
+        from models.square import Square
+        from pathlib import Path
+        file_name = f'{cls.__name__}.csv'
+        file_path = Path(file_name)
+        if not file_path.is_file():
+            return []
+        obj_list = []
+        with open(file_name, 'r', encoding='utf-8') as file:
+            for line in file:
+                if cls is Rectangle:
+                    obj_list.append(Rectangle.from_csv_to_obj(line))
+                elif cls is Square:
+                    obj_list.append(Square.from_csv_to_obj(line))
+        return obj_list
+
     @staticmethod
     def from_json_string(json_string):
         """Convert json string to list of dictionaries."""

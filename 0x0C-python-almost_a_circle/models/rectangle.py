@@ -117,3 +117,15 @@ class Rectangle(Base):
         """Convert object dictionary."""
         return {'id': self.id, 'width': self.width, 'height': self.height,
                 'x': self.x, 'y': self.y}
+
+    def to_csv_string(self):
+        """Convert object to csv string."""
+        return f'{self.id},{self.width},{self.height},{self.x},{self.y}'
+
+    @staticmethod
+    def from_csv_to_obj(csv_string):
+        """Convert csv string into dictionary."""
+        attr_list = csv_string.split(',')
+        return Rectangle(int(attr_list[1]), int(attr_list[2]),
+                         int(attr_list[3]), int(attr_list[4]),
+                         int(attr_list[0]))

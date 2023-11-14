@@ -50,3 +50,14 @@ class Square(Rectangle):
         new_dict.pop('height')
         new_dict['size'] = new_dict.pop('width')
         return new_dict
+
+    def to_csv_string(self):
+        """Convert object to csv string."""
+        return f'{self.id},{self.size},{self.x},{self.y}'
+
+    @staticmethod
+    def from_csv_to_obj(csv_string):
+        """Convert csv string into dictionary."""
+        attr_list = csv_string.split(',')
+        return Square(int(attr_list[1]), int(attr_list[2]),
+                      int(attr_list[3]), int(attr_list[0]))
